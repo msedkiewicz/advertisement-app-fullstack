@@ -1,82 +1,89 @@
-const Advert = require('../models/advert.model');
+const Adverts = require('../models/advert.model');
 
-exports.getAllAdverts = async (req, res, next) => {
+exports.getAll = async (req, res) => {
   try {
-    const adverts = await Advert.find();
-    res.json(adverts);
+    res.json(await Adverts.find().populate('User'));
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: err });
   }
 };
 
-exports.getAdvertByID = async (req, res, next) => {
+exports.getById = async (req, res) => {
   try {
-    const advert = await Advert.findById(req.params.id);
-    if (!advert) return res.status(404).json({ message: 'Advert not found' });
-    else res.json(advert);
+    const ad = await Adverts.findById(req.params.id).populate('User');
+    if (!ad) res.status(404).json({ message: 'Not found' });
+    else res.json(ad);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: err });
   }
 };
 
-exports.addAdvert = async (req, res, next) => {
+exports.post = async (req, res) => {
   try {
-    const advert = new Advert({
-      title: req.body.title,
-      description: req.body.description,
-      pubDate: req.body.pubDate,
-      address: req.body.address,
-      price: req.body.price,
-      image: req.body.image,
-      user: req.body.user,
+    const { title, description, date, image, price, localization, user } =
+      req.body;
+    const newAd = new Adverts({
+      title,
+      description,
+      date,
+      image,
+      price,
+      localization,
+      user,
     });
-    const newAdvert = await advert.save();
-    res.json(newAdvert);
+    await newAd.save();
+    res.json({ message: 'OK' });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: err });
   }
 };
 
-exports.deleteAdvert = async (req, res, next) => {
+exports.delete = async (req, res) => {
   try {
-    const advert = await Advert.findById(req.params.id);
-    if (!advert) return res.status(404).json({ message: 'Advert not found' });
+    const ad = await Adverts.findById(req.params.id);
+    if (ad) {
+      await Adverts.deleteOne({ _id: req.params.id });
+      res.json(ad);
+    } else res.status(404).json({ message: 'Not found...' });
+  } catch (err) {
+    res.status(500).json({ message: err });
+  }
+};
+
+exports.edit = async (req, res) => {
+  const { firstName, lastName } = req.body;
+  try {
+    const dep = await Employees.findById(req.params.id);
+    if (dep) {
+      await Employees.updateOne(
+        { _id: req.params.id },
+        { $set: { firstName: firstName, lastName: lastName } }
+      );
+      res.json({ message: 'OK' });
+    } else res.status(404).json({ message: 'Not found...' });
+  } catch (err) {
+    res.status(500).json({ message: err });
+  }
+};
+
+exports.edit = async (req, res) => {
+  const { title, description, date, image, price, localization, user } =
+    req.body;
+  try {
+    const ad = await Adverts.findById(req.params.id);
+    if (!ad) return res.status(404).json({ message: 'Ad not found' });
     else {
-      await advert.remove();
-      res.json({ message: 'Advert deleted' });
+      ad.title = title;
+      ad.description = description;
+      ad.price = price;
+      ad.date = date;
+      ad.localization = localization;
+      ad.user = user;
+      ad.image = image;
+      const updatedAdvert = await ad.save();
+      res.json({ message: 'OK' });
     }
   } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
-exports.updateAdvert = async (req, res, next) => {
-  try {
-    const advert = await Advert.findById(req.params.id);
-    if (!advert) return res.status(404).json({ message: 'Advert not found' });
-    else {
-      advert.title = req.body.title;
-      advert.description = req.body.description;
-      advert.price = req.body.price;
-      advert.image = req.body.image;
-      advert.user = req.body.user;
-      const updatedAdvert = await advert.save();
-      res.json(updatedAdvert);
-    }
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
-exports.getAdvertBySearchPhase = async (req, res, next) => {
-  try {
-    const adverts = await Advert.find({
-      $text: {
-        $search: req.params.searchPhase,
-      },
-    });
-    res.json(adverts);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: err });
   }
 };
