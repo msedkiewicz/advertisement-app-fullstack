@@ -53,9 +53,9 @@ exports.delete = async (req, res) => {
 exports.edit = async (req, res) => {
   const { firstName, lastName } = req.body;
   try {
-    const dep = await Employees.findById(req.params.id);
+    const dep = await Adverts.findById(req.params.id);
     if (dep) {
-      await Employees.updateOne(
+      await Adverts.updateOne(
         { _id: req.params.id },
         { $set: { firstName: firstName, lastName: lastName } }
       );
