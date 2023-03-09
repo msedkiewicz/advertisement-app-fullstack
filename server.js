@@ -17,7 +17,14 @@ app.listen(process.env.PORT || 8000, () => {
 connectToDB();
 
 // add middleware
-app.use(cors());
+if (process.env.NODE_ENV !== 'production') {
+  app.use(
+    cors({
+      origin: ['http://localhost:3000'],
+      credentials: true,
+    })
+  );
+}
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
