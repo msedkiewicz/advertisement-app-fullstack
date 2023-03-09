@@ -5,18 +5,18 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const mongoose = require('mongoose');
 const connectToDB = require('./db');
+require('dotenv').config();
 
-// start express server
+const adsRoutes = require('./routes/adverts.routes');
+const authRoutes = require('./routes/auth.routes');
 
 const app = express();
+
 app.listen(process.env.PORT || 8000, () => {
   console.log('Server is running...');
 });
-
-// connect to DB
 connectToDB();
 
-// add middleware
 if (process.env.NODE_ENV !== 'production') {
   app.use(
     cors({
@@ -29,28 +29,26 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
-    secret: process.env.SECRET_KEY,
-    store: MongoStore.create(mongoose.connection),
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV == 'production',
     },
+    store: MongoStore.create({
+      mongoUrl: 'mongodb://localhost:27017/NoticeBoard',
+    }),
   })
 );
 
-// serve static files from React app
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, '/client/build')));
+app.use(express.static(path.join(__dirname, '/public')));
 
-// add routes
-app.use('/api', require('./routes/adverts.routes'));
-// app.use('/api', require('./routes/users.routes'));
-app.use('/auth', require('./routes/auth.routes'));
-
-// at any other link serve React app
+app.use('/api', adsRoutes);
+app.use('/auth', authRoutes);
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + 'client/build/index.html'));
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
 app.use((req, res) => {
