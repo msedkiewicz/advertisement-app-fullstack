@@ -22,7 +22,7 @@ const connectToDB = () => {
   });
 
   // on error
-  db.on('error', (err) => console.log('Error ' + err));
+  db.on('error', (err) => console.log(`Error: ${err}`));
 };
 
 module.exports = connectToDB;
