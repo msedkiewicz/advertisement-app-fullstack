@@ -29,7 +29,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
-    secret: process.env.secret,
+    secret: process.env.SECRET_KEY,
     store: MongoStore.create(mongoose.connection),
     resave: false,
     saveUninitialized: false,
