@@ -12,7 +12,7 @@ exports.getAll = async (req, res) => {
 
 exports.getById = async (req, res) => {
   try {
-    const ad = await Ads.findById(req.params.id).populate('User');
+    const ad = await Ads.findById(req.params.id).populate('user');
     if (!ad) res.status(404).json({ message: 'Not found' });
     else res.json(ad);
   } catch (err) {
@@ -49,7 +49,7 @@ exports.post = async (req, res) => {
       if (req.file) {
         fs.unlinkSync(`./public/uploads/${req.file.filename}`);
       }
-      res.status(400).send({ message: 'Bed request' });
+      res.status(400).send({ message: 'Bad request' });
     }
   } catch (err) {
     res.status(500).json({ message: err });
@@ -99,5 +99,16 @@ exports.edit = async (req, res) => {
       fs.unlinkSync(`./public/uploads/${req.file.filename}`);
     }
     res.status(500).json({ message: err });
+  }
+};
+
+exports.searchPhrase = async (req, res, next) => {
+  const { searchPhrase } = req.params;
+  try {
+    const ad = await Ads.find({ $text: { $search: searchPhrase } });
+    if (!ad) return res.status(404).json({ message: 'Ad not found' });
+    else res.json(ad);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };

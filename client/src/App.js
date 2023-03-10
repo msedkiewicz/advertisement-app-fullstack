@@ -9,6 +9,7 @@ import Login from './components/pages/Login/Login';
 import Register from './components/pages/Register/Register';
 import Logout from './components/pages/Logout/Logout';
 import AddAds from './components/features/AddAds/AddAds';
+import Search from './components/pages/Search/Search'
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/addAds" element={<AddAds />} />
+          <Route path="/search/:searchId" element={<Search />} />
         </Routes>
       </Container>
       <Footer />
