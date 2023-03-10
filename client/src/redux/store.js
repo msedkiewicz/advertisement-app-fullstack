@@ -5,7 +5,7 @@ import usersReducer from './usersRedux';
 import adsReducer from './adsRedux';
 
 const subreducers = {
-  users: usersReducer,
+  user: usersReducer,
   ads: adsReducer,
 };
 

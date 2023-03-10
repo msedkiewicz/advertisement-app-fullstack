@@ -1,25 +1,31 @@
-import { API_URL } from '../config';
+import shortid from 'shortid';
 
 export const getAllAds = ({ ads }) => ads;
+export const getAdById = ({ ads }, id) => ads.find((ad) => ad._id === id);
 
 const createActionName = (actionName) => `app/ads/${actionName}`;
+const ADD_AD = createActionName('ADD_AD');
+const REMOVE_AD = createActionName('REMOVE_AD');
 const UPDATE_ADS = createActionName('UPDATE_ADS');
+const EDIT_AD = createActionName('EDIT_AD');
 
+export const addAd = (payload) => ({ type: ADD_AD, payload });
+export const removeAd = (payload) => ({ type: REMOVE_AD, payload });
 export const updateAds = (payload) => ({ type: UPDATE_ADS, payload });
-
-export const fetchData = () => {
-  return (dispatch) => {
-    fetch(API_URL + '/api/ads')
-      .then((res) => res.json())
-
-      .then((ads) => dispatch(updateAds(ads)));
-  };
-};
+export const editAd = (payload) => ({ type: EDIT_AD, payload });
 
 const adsReducer = (statePart = [], action) => {
   switch (action.type) {
+    case ADD_AD:
+      return [...statePart, { ...action.payload, _id: shortid() }];
+    case REMOVE_AD:
+      return statePart.filter((ad) => ad._id !== action.payload);
     case UPDATE_ADS:
       return [...action.payload];
+    case EDIT_AD:
+      return statePart.map((ad) =>
+        ad.id === action.payload.id ? { ...ad, ...action.payload } : ad
+      );
     default:
       return statePart;
   }
