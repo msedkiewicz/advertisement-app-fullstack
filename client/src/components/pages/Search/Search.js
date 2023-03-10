@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Adsbox from '../../features/AdsBox/Adsbox';
+import Adsbox from '../../features/AdsBox/AdsBox';
 import SearchBar from '../../features/SearchBar/SearchBar';
 import { API_URL } from '../../../config';
 import Loader from '../../features/Loader/Loader';

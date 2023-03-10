@@ -22,7 +22,6 @@ const Header = () => {
               >
                 Home
               </NavLink>
-              x
             </li>
             <li>
               {!user && (
