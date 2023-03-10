@@ -1,6 +1,10 @@
 import styles from './Header.module.scss';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 const Header = () => {
+  // currently add logged user state
+  const user = 1;
+
   return (
     <nav>
       <div className={styles.nav_wrapper}>
@@ -19,34 +23,40 @@ const Header = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? styles.linkActive : undefined
-              }
-              to="/login"
-            >
-              Sign in
-            </NavLink>
+            {!user && (
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? styles.linkActive : undefined
+                }
+                to="/login"
+              >
+                Sign in
+              </NavLink>
+            )}
           </li>
           <li>
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? styles.linkActive : undefined
-              }
-              to="/register"
-            >
-              Register
-            </NavLink>
+            {!user && (
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? styles.linkActive : undefined
+                }
+                to="/register"
+              >
+                Register
+              </NavLink>
+            )}
           </li>
           <li>
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? styles.linkActive : undefined
-              }
-              to="/logout"
-            >
-              Logout
-            </NavLink>
+            {user && (
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? styles.linkActive : undefined
+                }
+                to="/logout"
+              >
+                Logout
+              </NavLink>
+            )}
           </li>
         </ul>
       </div>

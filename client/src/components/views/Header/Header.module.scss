@@ -7,6 +7,9 @@ nav {
 .logo {
   text-decoration: none;
   color: $color-white;
+  &:hover {
+    color: $color-white;
+  }
 }
 
 .nav_wrapper {
