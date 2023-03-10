@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useForm } from 'react-hook-form';
@@ -13,6 +13,8 @@ const AdForm = ({ action, actionText, ...props }) => {
   const [date, setDate] = useState(props.date || updateDate);
   const [image, setImage] = useState(props.image || '');
   const [phoneNumber, setPhone] = useState(props.phoneNumber || '');
+  const [user, setUser] = useState(props.userId || '');
+  console.log(props.userId);
   const {
     register,
     handleSubmit: validate,
@@ -24,8 +26,8 @@ const AdForm = ({ action, actionText, ...props }) => {
       action({
         price,
         title,
-        user: props.user,
-        date: date,
+        user,
+        date: updateDate,
         description,
         localization,
         id,

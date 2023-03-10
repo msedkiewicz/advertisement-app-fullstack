@@ -48,7 +48,6 @@ const EditAds = () => {
       date={adData.date}
       image={adData.image}
       phoneNumber={adData.user.phoneNumber}
-      user={adData.user._id}
       id={id}
     />
   );
