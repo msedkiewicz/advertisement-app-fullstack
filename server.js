@@ -25,6 +25,8 @@ if (process.env.NODE_ENV !== 'production') {
     })
   );
 }
+
+console.log('env ', process.env);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
@@ -33,7 +35,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: process.env.NODE_ENV == 'production',
+      secure: process.env.NODE_ENV === 'production',
     },
     store: MongoStore.create({
       mongoUrl: 'mongodb://localhost:27017/NoticeBoard',
@@ -48,7 +50,7 @@ app.use('/api', adsRoutes);
 app.use('/auth', authRoutes);
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/build/index.html'));
+  res.sendFile(path.join(__dirname, '/client/build/index.html'));
 });
 
 app.use((req, res) => {

@@ -1,0 +1,38 @@
+@import '../../../styles/settings.scss';
+
+nav {
+  background-color: $color-darkblue;
+}
+
+.logo {
+  text-decoration: none;
+  color: $color-white;
+  &:hover {
+    color: $color-white;
+  }
+}
+
+.nav_wrapper {
+  font-size: $base-size * 1.5;
+  font-weight: bold;
+  margin: 0 ($base-size * 10);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav_list {
+  list-style: none;
+  display: inline-flex;
+  li {
+    padding: $base-size;
+  }
+
+  a {
+    text-decoration: none;
+    color: $color-white;
+  }
+  a.linkActive {
+    color: $color-lightblue;
+  }
+}

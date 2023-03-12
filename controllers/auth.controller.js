@@ -5,11 +5,12 @@ const getImageFileType = require('../utils/getImageFileType');
 
 exports.register = async (req, res) => {
   try {
-    const { login, password, phoneNumber } = req.body;
-    console.log(req.body, req.file);
+    const { login, password, avatar, phoneNumber } = req.body;
+    // console.log(req.body, req.file);
+    console.log(avatar);
 
     const fileType = req.file ? await getImageFileType(req.file) : 'unknown';
-
+    // console.log('login: ', login, 'password: ', password, 'phoneNumber: ', phoneNumber, 'file: ', req.file);
     if (
       login &&
       typeof login === 'string' &&
@@ -42,7 +43,7 @@ exports.register = async (req, res) => {
       if (req.file) {
         fs.unlinkSync(`./public/uploads/${req.file.filename}`);
       }
-      res.status(400).send({ message: 'Bed request' });
+      res.status(400).send({ message: 'Bad request' });
     }
   } catch (err) {
     res.status(500).send({ message: err.message });
@@ -64,7 +65,6 @@ exports.login = async (req, res) => {
       } else {
         if (bcrypt.compareSync(password, user.password)) {
           req.session.login = user;
-          req.session.id = user.id;
           res.status(200).send({ message: 'Login successful' });
         } else {
           res.status(400).send({ message: 'Login or password are incorrect' });
@@ -79,9 +79,11 @@ exports.login = async (req, res) => {
 };
 
 exports.getUser = async (req, res) => {
-  res.send({
-    message: 'You are logged ' + req.session.login + ' ' + req.session.id,
-  });
+  try {
+    res.json(req.session.login);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
 exports.logout = async (req, res) => {
@@ -90,5 +92,15 @@ exports.logout = async (req, res) => {
     res.send('Bye Bye');
   } catch (err) {
     res.status(500).send({ message: err.message });
+  }
+};
+
+exports.getUserByLogin = async (req, res) => {
+  try {
+    const user = await User.findOne({ login: req.params.login });
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };

@@ -21,6 +21,6 @@ router.put(
   imageUpload.single('image'),
   adsController.edit
 );
-// router.get('/ads/search/:searchPhrase', adsController.search);
+router.get('/ads/search/:searchPhrase', adsController.searchPhrase);
 
 module.exports = router;
