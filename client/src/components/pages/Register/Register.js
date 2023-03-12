@@ -25,7 +25,8 @@ const Register = () => {
       body: fd,
     };
 
-    fetch(API_URL + `/auth/register`, options).then((res) => {
+    setStatus('loading');
+    fetch(`${API_URL}/auth/register`, options).then((res) => {
       if (res.status === 201) {
         setStatus('success');
       } else if (res.status === 400) {
@@ -45,13 +46,13 @@ const Register = () => {
       {status === 'success' && (
         <Alert variant="success">
           <Alert.Heading>Success!</Alert.Heading>
-          <p>You have been successfully registered! You can now log in...</p>
+          <p>You have been successfully registered! You can now log in.</p>
         </Alert>
       )}
 
       {status === 'serverError' && (
         <Alert variant="danger">
-          <Alert.Heading>Something went wrong...</Alert.Heading>
+          <Alert.Heading>Something went wrong!</Alert.Heading>
           <p>Unexpected error.. Please try again!</p>
         </Alert>
       )}

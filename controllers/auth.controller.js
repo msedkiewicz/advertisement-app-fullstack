@@ -5,11 +5,12 @@ const getImageFileType = require('../utils/getImageFileType');
 
 exports.register = async (req, res) => {
   try {
-    const { login, password, phoneNumber } = req.body;
-    console.log(req.body, req.file);
+    const { login, password, avatar, phoneNumber } = req.body;
+    // console.log(req.body, req.file);
+    console.log(avatar);
 
     const fileType = req.file ? await getImageFileType(req.file) : 'unknown';
-
+    // console.log('login: ', login, 'password: ', password, 'phoneNumber: ', phoneNumber, 'file: ', req.file);
     if (
       login &&
       typeof login === 'string' &&
@@ -42,7 +43,7 @@ exports.register = async (req, res) => {
       if (req.file) {
         fs.unlinkSync(`./public/uploads/${req.file.filename}`);
       }
-      res.status(400).send({ message: 'Bed request' });
+      res.status(400).send({ message: 'Bad request' });
     }
   } catch (err) {
     res.status(500).send({ message: err.message });

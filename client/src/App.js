@@ -19,12 +19,14 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/ads/:id" element={<AdPage />} />
+          <Route path="/addAds" element={<AddAds />} />
+          {/* <Route path="/ads/add" element={<AddAds />} /> */}
           <Route path="/ads/edit/:id" element={<EditAds />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/addAds" element={<AddAds />} />
           <Route path="/search/:searchId" element={<Search />} />
+          {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </Container>
       <Footer />
