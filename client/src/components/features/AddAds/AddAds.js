@@ -9,14 +9,12 @@ import AdForm from '../AdForm/AdForm';
 
 const AddAds = () => {
   const user = useSelector(getUser);
-  console.log(user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userId = useSelector(getUserId);
 
   const handleSubmit = (ad) => {
     const fd = new FormData();
-    console.log(ad.user);
     fd.append('title', ad.title);
     fd.append('description', ad.description);
     fd.append('date', ad.date);

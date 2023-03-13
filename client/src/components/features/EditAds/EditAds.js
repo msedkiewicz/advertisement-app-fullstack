@@ -13,7 +13,6 @@ const EditAds = () => {
   const adData = useSelector((state) => getAdById(state, id));
 
   const handleSubmit = (ad) => {
-    console.log(ad);
     const fd = new FormData();
     fd.append('title', ad.title);
     fd.append('description', ad.description);

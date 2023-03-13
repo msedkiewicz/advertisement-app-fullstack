@@ -20,7 +20,6 @@ const Home = () => {
       fetch(API_URL + '/auth/user/' + user.login).then((res) => {
         if (res.status === 200) {
           return res.json().then((data) => {
-            console.log(data._id);
             dispatch(updateData(data._id));
           });
         }

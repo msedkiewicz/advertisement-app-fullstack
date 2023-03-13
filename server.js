@@ -26,7 +26,6 @@ if (process.env.NODE_ENV !== 'production') {
   );
 }
 
-console.log('env ', process.env);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(

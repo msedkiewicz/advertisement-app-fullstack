@@ -24,7 +24,6 @@ const AdPage = () => {
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
-  console.log(adData.user._id + userId);
 
   const handleDelete = (e) => {
     e.preventDefault();

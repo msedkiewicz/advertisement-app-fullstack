@@ -14,7 +14,7 @@ const AdForm = ({ action, actionText, ...props }) => {
   const [image, setImage] = useState(props.image || '');
   const [phoneNumber, setPhone] = useState(props.phoneNumber || '');
   const [user, setUser] = useState(props.userId || '');
-  console.log(props.userId);
+
   const {
     register,
     handleSubmit: validate,

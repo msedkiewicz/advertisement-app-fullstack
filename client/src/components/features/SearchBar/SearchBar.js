@@ -8,7 +8,6 @@ import Button from 'react-bootstrap/Button';
 const SearchBar = ({ action }) => {
   const user = useSelector(getUser);
   const [search, setSearch] = useState();
-  console.log(search);
 
   return (
     <div className={styles.container}>
