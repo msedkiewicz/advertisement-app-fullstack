@@ -23,7 +23,7 @@ const SearchBar = ({ action }) => {
           onClick={() => {}}
           to={'/search/' + search}
         >
-          Add Ads
+          Search
         </Button>
       </div>
       {user && (
