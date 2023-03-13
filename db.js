@@ -3,14 +3,16 @@ const mongoose = require('mongoose');
 const connectToDB = () => {
   // connect to DB
   const NODE_ENV = process.env.NODE_ENV;
-  let dbUri = '';
+  let dbURI = '';
+  if (NODE_ENV === 'production') {
+    dbURI = `mongodb+srv://m9KEMMlW5XB:${process.env.DB_PASS}@cluster0.cpy2a7a.mongodb.net/NoticeBoard?retryWrites=true&w=majority`;
+  } else if (NODE_ENV === 'test') {
+    dbURI = 'mongodb://localhost:27017/NoticeBoardtest';
+  } else {
+    dbURI = 'mongodb://localhost:27017/NoticeBoard';
+  }
 
-  if (NODE_ENV === 'production') dbUri = process.env.DB_URL;
-  else if (NODE_ENV === 'test')
-    dbUri = 'mongodb://localhost:27017/NoticeBoardtest';
-  else dbUri = 'mongodb://localhost:27017/NoticeBoard';
-
-  mongoose.connect(dbUri, {
+  mongoose.connect(dbURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
