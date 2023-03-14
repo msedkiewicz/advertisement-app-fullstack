@@ -6,11 +6,11 @@ const connectToDB = () => {
   let dbURI = '';
   if (NODE_ENV === 'production') {
     dbURI = `mongodb+srv://m9KEMMlW5XB:${process.env.DB_PASS}@cluster0.cpy2a7a.mongodb.net/NoticeBoard?retryWrites=true&w=majority`;
-  // } else if (NODE_ENV === 'test') {
-  //   dbURI = 'mongodb://localhost:27017/NoticeBoardtest';
-  // } else {
-  //   dbURI = 'mongodb://localhost:27017/NoticeBoard';
-  // }
+    // } else if (NODE_ENV === 'test') {
+    //   dbURI = 'mongodb://localhost:27017/NoticeBoardtest';
+    // } else {
+    //   dbURI = 'mongodb://localhost:27017/NoticeBoard';
+  }
 
   mongoose.connect(dbURI, {
     useNewUrlParser: true,
