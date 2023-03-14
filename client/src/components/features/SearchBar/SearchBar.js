@@ -29,7 +29,7 @@ const SearchBar = ({ action }) => {
       {user && (
         <div>
           <Button variant="primary" as={Link} to={'/addAds'}>
-            Search
+            Add Ads
           </Button>
         </div>
       )}
