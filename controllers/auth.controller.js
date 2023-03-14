@@ -22,7 +22,7 @@ exports.register = async (req, res) => {
 
       if (userWithLogin) {
         return (
-          fs.unlinkSync(`./public/uploads/${req.file.filename}`),
+          fs.unlinkSync(`./client/public/uploads/${req.file.filename}`),
           res
             .status(409)
             .send({ message: 'User with this login already exists' })
@@ -38,7 +38,7 @@ exports.register = async (req, res) => {
       res.status(201).send({ message: 'User created ' + user.login });
     } else {
       if (req.file) {
-        fs.unlinkSync(`./public/uploads/${req.file.filename}`);
+        fs.unlinkSync(`./client/public/uploads/${req.file.filename}`);
       }
       res.status(400).send({ message: 'Bad request' });
     }

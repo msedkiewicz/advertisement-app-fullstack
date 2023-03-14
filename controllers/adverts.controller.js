@@ -47,7 +47,7 @@ exports.post = async (req, res) => {
       res.json({ message: 'New Ads' });
     } else {
       if (req.file) {
-        fs.unlinkSync(`./public/uploads/${req.file.filename}`);
+        fs.unlinkSync(`./client/public/uploads/${req.file.filename}`);
       }
       res.status(400).send({ message: 'Bad request' });
     }
@@ -89,14 +89,14 @@ exports.edit = async (req, res) => {
       res.json(updatedAd);
     } else {
       if (req.file) {
-        fs.unlinkSync(`./public/uploads/${req.file.filename}`);
+        fs.unlinkSync(`./client/public/uploads/${req.file.filename}`);
       }
 
       res.status(404).json({ message: 'Not found...' });
     }
   } catch (err) {
     if (req.file) {
-      fs.unlinkSync(`./public/uploads/${req.file.filename}`);
+      fs.unlinkSync(`./client/public/uploads/${req.file.filename}`);
     }
     res.status(500).json({ message: err });
   }
