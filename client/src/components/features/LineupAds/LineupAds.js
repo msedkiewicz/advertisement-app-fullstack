@@ -7,7 +7,7 @@ import Adsbox from '../AdsBox/AdsBox';
 
 const LineupAds = () => {
   const ads = useSelector(getAllAds);
-
+  console.log('ads: ', ads)
   return (
     <Row xs={1} md={3} className="g-3 ">
       {ads.map((ad) => (

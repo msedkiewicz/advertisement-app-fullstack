@@ -36,9 +36,9 @@ app.use(
     cookie: {
       secure: process.env.NODE_ENV === 'production',
     },
-    // store: MongoStore.create({
-    //   mongoUrl: 'mongodb://localhost:27017/NoticeBoard',
-    // }),
+    store: MongoStore.create({
+      mongoUrl: 'mongodb://localhost:27017/NoticeBoard',
+    }),
   })
 );
 

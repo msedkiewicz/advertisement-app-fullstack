@@ -9,5 +9,6 @@ const advertSchema = new mongoose.Schema({
   localization: { type: String, required: true },
   user: { type: String, required: true, ref: 'User' },
 });
+advertSchema.index({ '$**': 'text' });
 
 module.exports = mongoose.model('Advert', advertSchema);
